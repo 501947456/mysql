@@ -1,0 +1,8 @@
+官网：http://dev.mysql.com
+版本：
+GA  Generally Avalialiable(GA) Release  生产用
+DMR  Development Releases
+RC Release candidate
+Beta Public Beta befor final release 测试版，增加删除功能
+
+2.采用二进制的安装方式安装，即下载Linux - Generic 版本
