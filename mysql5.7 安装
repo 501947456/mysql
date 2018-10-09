@@ -17,6 +17,7 @@ Beta Public Beta befor final release 测试版，增加删除功能
 
 4.二进制安装方式
 4.1 创建账户（/sbin/nologin） 
+groupadd mysql && useradd -g mysql -s /sbin/nologin/ -d /usr/local/mysql -MN mysql
 4.2 软件的基本安装
 4.3 数据库目录创建
 4.4 配置文件准备
