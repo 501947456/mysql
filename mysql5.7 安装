@@ -5,4 +5,61 @@ DMR  Development Releases
 RC Release candidate
 Beta Public Beta befor final release 测试版，增加删除功能
 
-2.采用二进制的安装方式安装，即下载Linux - Generic 版本
+2.采用二进制的安装方式安装，即下载Linux - Generic 版本 5.7rpm安装已经没有mysqld_safe这个脚本了
+
+3.Linux 环境检查
+3.1 关闭numa  numactl --hardwrae
+3.2 限制设置 /etc/security/limits.conf && 网络优化
+3.3 swap
+3.4 IO 调度
+3.5 文件系统
+3.6 selinux & iptables
+
+4.二进制安装方式
+4.1 创建账户（/sbin/nologin） 
+4.2 软件的基本安装
+4.3 数据库目录创建
+4.4 配置文件准备
+4.5 初始化mysql
+4.6 检查error log 初始化是不是正常
+
+5.启动mysql
+系统自启(不建议设置成自动启动)
+cp /usr/local/mysql/script/mysql.server /etc/init.d/mysqld
+chkconfig add mysqld
+/etc/init.d/mysqld start|stop|restart
+
+手工启动方式
+/usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf &
+/usr/local/mysql/bin/mysqld_safe --defaults-file=/etc/my.cnf &
+
+设置环境变量
+echo "export PATH=$PATH:/usr/local/mysql/bin/mysql" >> /etc/profile
+source /etc/profile
+
+安全加固
+低于mysql5.7的版本加固处理(5.7版本，以下操作自动执行，无需人工执行)
+delete from mysql.user where user !='root' or host !='localhost';
+truncate mysql.db;
+drop database test;
+
+
+6.利用阿里云安装docker
+使用yum 安装
+6.1 删除系统自带的Docker及依赖
+yum remove docker* container-selinux
+6.2添加软件
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+6.3 更新并安装Docker-ce
+yum makecache fast
+yum -y install docker-ce
+安装完docker 后新增文件
+cat /etc/docker/daemon.json
+{
+  "registry-mirrors":["https://rdtmp7tw.mirror.aliyuncs.com"],
+  "data-root":"/data/docker"
+}
+6.4开启docker服务
+systemctl start docker
+
