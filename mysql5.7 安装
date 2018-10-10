@@ -44,6 +44,12 @@ chkconfig add mysqld
 修改用户密码
 alter user user() identified by '123456';
 
+mysql 启动顺序，配置文件读取顺序查看
+/usr/local/mysql/bin/mysqld --verbose --help
+
+追踪mysql启动过程
+strace -ttt /usr/local/mysql/bin/mysqld &> |tee s1.log  (pstack,gstack)
+
 设置环境变量
 echo "export PATH=$PATH:/usr/local/mysql/bin/mysql" >> /etc/profile
 source /etc/profile
@@ -74,3 +80,5 @@ cat /etc/docker/daemon.json
 6.4开启docker服务
 systemctl start docker
 
+6.5 
+ps -eo lstart,pid,cmd | grep mysqld
