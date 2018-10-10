@@ -16,13 +16,21 @@ Beta Public Beta befor final release 测试版，增加删除功能
 3.6 selinux & iptables
 
 4.二进制安装方式
-4.1 创建账户（/sbin/nologin） 
+4.1创建基本的路径
+mkdir -p /data/mysql/mysql3306/{data,logs,tmp}
+ln -s /opt/mysql/mysql5.7.22   /usr/local/mysql
+4.2 创建账户（/sbin/nologin） 
 groupadd mysql && useradd -g mysql -s /sbin/nologin/ -d /usr/local/mysql -MN mysql
+
+4.3 更改权限
+chown -R　mysql:mysql /usr/local/mysql
+chown -R mysql:mysql /data/mysql
 4.2 软件的基本安装
-4.3 数据库目录创建
-4.4 配置文件准备
-4.5 初始化mysql
-4.6 检查error log 初始化是不是正常
+4.3 配置文件准备
+/path/my.cnf
+4.4 初始化mysql
+/usr/local/mysql/bin/mysqld --defaults-file=/path/my.cnf --initialize  密码可在错误日志中查看到
+4.5 检查error log 初始化是不是正常
 
 5.启动mysql
 系统自启(不建议设置成自动启动)
@@ -33,6 +41,8 @@ chkconfig add mysqld
 手工启动方式
 /usr/local/mysql/bin/mysqld --defaults-file=/etc/my.cnf &
 /usr/local/mysql/bin/mysqld_safe --defaults-file=/etc/my.cnf &
+修改用户密码
+alter user user() identified by '123456';
 
 设置环境变量
 echo "export PATH=$PATH:/usr/local/mysql/bin/mysql" >> /etc/profile
