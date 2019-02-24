@@ -41,3 +41,20 @@ space id 对应相应idb表空间自己的id(每次创建新表space id自增1)
 select * from INNODB_SYS_TABLES;   可以查看各个表的 space 
 page number: 每个表空间中对应的第几个 innodb_page_size 的值，page number 也是自增的
 
+6.查看数据库中没有主键的表
+select table_schema,table_name
+from information_schema.tables where table_name not in (select distinct table_name from information_schema.collumns where column_key=‘PRI’) and table_schema not in (‘mysql’,’information_schema’,’sys’,performance
+_schema’);
+
+7.表空间—记录
+。innodb 存储引擎是索引组织表
+    。index organized table
+     。 适合oltp应用
+。 叶子节点存放所有数据
+     。索引即数据
+     。 数据及索引
+ 。 聚集索引记录存在以下系统列
+     。 rowed:  B+树索引键值
+      。 try id: 6个字节
+      。 roll pointer: 7字节
+
