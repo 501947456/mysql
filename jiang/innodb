@@ -11,3 +11,13 @@ undo表空间：
 mysqlfrm --diagnostic  dept_manager.frm
 
 -rw-r-----  1 a  staff      65536  1 20 21:23 dept_manager.ibd  #存放索引和数据文件
+
+2.查看数据库中所有元数据信息
+select * from information_schema.INNODB_SYS_TABLESPACES;
+由于表元数据信息还存在共享表空间中，所以共享表空间是不能删掉，而且只拷贝.frm 和.idb文件到其他数据库中，数据是不完整的
+
+指定创建表的路径
+create table a(a int )data direcotry='/tests';
+创建通用表空间
+create tablespace ts10 add datafile '/test/ts10.ibd' file_block_size=10;
+create table ttt(a int) tablespace=ts10;
