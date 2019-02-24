@@ -36,4 +36,8 @@ innodb_log_file_size = 1G
 页：最小的I/O操作单位
 普通用户表：默认每个页16k  innodb_page_size                     | 8192 
 压缩表：基于页的压缩 每个页的大小可以不同
-在Innnodb中是如何定义一个页的
+在Innnodb中是如何定位一个页的=spaceid+page_number
+space id 对应相应idb表空间自己的id(每次创建新表space id自增1)
+select * from INNODB_SYS_TABLES;   可以查看各个表的 space 
+page number: 每个表空间中对应的第几个 innodb_page_size 的值，page number 也是自增的
+
