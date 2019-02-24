@@ -1,0 +1,13 @@
+1.innodb 存储引擎文件-表空间包括
+表空间：逻辑存储的概念，可以有多个文件组成
+独立表空间：每个表都有自己单独的表空间
+系统表空间/共享表空间：不存在独立表空间之前，存放元数据，undo等都存在系统表空间中
+undo表空间：
+临时表空间：mysql5.7开始存在 ibtmp1
+
+数据文件中每个表一个独立表空间
+-rw-r-----  1 a  staff       8676  1 20 21:23 dept_manager.frm  存储表结构
+以文件的形式查看表结构信息：
+mysqlfrm --diagnostic  dept_manager.frm
+
+-rw-r-----  1 a  staff      65536  1 20 21:23 dept_manager.ibd  #存放索引和数据文件
